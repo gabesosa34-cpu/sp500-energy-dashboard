@@ -1,0 +1,146 @@
+ticker,company_name,sub_industry,year,open_price,close_price,annual_return_pct,annual_volatility_pct,avg_daily_volume,year_high,year_low
+APA,APA Corporation,Oil & Gas Exploration & Production,2019,22.03,21.57,-2.09,49.84,5160655,30.59,15.49
+APA,APA Corporation,Oil & Gas Exploration & Production,2020,21.38,12.14,-43.2,121.71,13547805,28.32,3.41
+APA,APA Corporation,Oil & Gas Exploration & Production,2021,12.64,23.17,83.27,57.64,8580757,26.41,12.24
+APA,APA Corporation,Oil & Gas Exploration & Production,2022,24.17,40.87,69.08,58.89,8648867,44.57,24.17
+APA,APA Corporation,Oil & Gas Exploration & Production,2023,38.19,32.19,-15.71,38.01,4941251,40.43,27.95
+APA,APA Corporation,Oil & Gas Exploration & Production,2024,32.4,21.43,-33.86,35.89,6309078,32.97,19.01
+APA,APA Corporation,Oil & Gas Exploration & Production,2025,21.7,23.9,10.15,53.92,7563044,26.48,13.16
+BKR,Baker Hughes,Oil & Gas Equipment & Services,2019,17.03,21.39,25.64,32.3,5134243,23.2,16.91
+BKR,Baker Hughes,Oil & Gas Equipment & Services,2020,21.38,18.15,-15.08,70.31,7053809,21.4,7.85
+BKR,Baker Hughes,Oil & Gas Equipment & Services,2021,18.3,21.61,18.07,37.6,8382540,24.04,17.12
+BKR,Baker Hughes,Oil & Gas Equipment & Services,2022,22.49,27.22,21.03,45.3,10085311,35.01,18.72
+BKR,Baker Hughes,Oil & Gas Equipment & Services,2023,26.5,32.27,21.8,27.22,6855046,34.94,24.78
+BKR,Baker Hughes,Oil & Gas Equipment & Services,2024,32.04,39.73,24.02,27.34,7076185,43.47,26.91
+BKR,Baker Hughes,Oil & Gas Equipment & Services,2025,40.25,45.05,11.92,35.82,7531886,50.07,34.07
+COP,ConocoPhillips,Oil & Gas Exploration & Production,2019,48.71,51.09,4.9,27.97,6504154,54.54,39.32
+COP,ConocoPhillips,Oil & Gas Exploration & Production,2020,51.43,32.68,-36.46,72.5,9552385,52.23,17.94
+COP,ConocoPhillips,Oil & Gas Exploration & Production,2021,32.34,60.98,88.58,35.71,9083425,64.51,32.34
+COP,ConocoPhillips,Oil & Gas Exploration & Production,2022,62.33,104.7,67.99,42.84,7818650,118.54,62.33
+COP,ConocoPhillips,Oil & Gas Exploration & Production,2023,100.37,106.78,6.38,28.82,5791421,115.87,84.13
+COP,ConocoPhillips,Oil & Gas Exploration & Production,2024,108.18,93.79,-13.3,22.6,6135905,123.71,89.96
+COP,ConocoPhillips,Oil & Gas Exploration & Production,2025,94.65,91.59,-3.23,33.76,7582512,101.15,78.81
+CVX,Chevron Corporation,Integrated Oil & Gas,2019,79.18,89.71,13.29,18.37,6320622,92.33,77.67
+CVX,Chevron Corporation,Integrated Oil & Gas,2020,90.39,66.43,-26.51,61.03,11200872,90.39,40.83
+CVX,Chevron Corporation,Integrated Oil & Gas,2021,66.63,97.14,45.79,24.5,10482366,98.34,66.63
+CVX,Chevron Corporation,Integrated Oil & Gas,2022,98.73,153.94,55.92,32.92,11478780,160.04,98.73
+CVX,Chevron Corporation,Integrated Oil & Gas,2023,149.22,132.95,-10.9,23.15,8647762,161.06,125.2
+CVX,Chevron Corporation,Integrated Oil & Gas,2024,133.24,134.66,1.07,19.23,7802435,151.11,126.41
+CVX,Chevron Corporation,Integrated Oil & Gas,2025,136.4,148.27,8.7,24.26,8772039,158.41,125.71
+DVN,Devon Energy,Oil & Gas Exploration & Production,2019,16.32,18.52,13.44,41.83,6976587,24.8,14.06
+DVN,Devon Energy,Oil & Gas Exploration & Production,2020,18.39,11.97,-34.89,96.48,9972107,18.89,3.9
+DVN,Devon Energy,Oil & Gas Exploration & Production,2021,12.22,35.43,190.02,52.12,11704693,35.88,12.22
+DVN,Devon Energy,Oil & Gas Exploration & Production,2022,36.65,53.45,45.83,54.03,12035268,65.79,36.65
+DVN,Devon Energy,Oil & Gas Exploration & Production,2023,50.51,41.79,-17.27,34.28,9007493,57.15,38.84
+DVN,Devon Energy,Oil & Gas Exploration & Production,2024,42.28,31.25,-26.09,25.23,7827611,50.75,29.14
+DVN,Devon Energy,Oil & Gas Exploration & Production,2025,31.89,35.95,12.73,41.79,8477073,37.46,25.77
+EOG,EOG Resources,Oil & Gas Exploration & Production,2019,66.61,62.3,-6.47,34.38,3929884,79.05,47.93
+EOG,EOG Resources,Oil & Gas Exploration & Production,2020,62.58,38.23,-38.91,74.64,5493286,66.41,22.21
+EOG,EOG Resources,Oil & Gas Exploration & Production,2021,38.22,72.11,88.66,44.64,4438565,77.04,38.22
+EOG,EOG Resources,Oil & Gas Exploration & Production,2022,74.0,113.13,52.87,44.91,4178468,127.97,74.0
+EOG,EOG Resources,Oil & Gas Exploration & Production,2023,108.7,110.83,1.97,29.42,3316551,123.25,90.02
+EOG,EOG Resources,Oil & Gas Exploration & Production,2024,111.43,115.6,3.74,22.58,3140030,128.77,101.27
+EOG,EOG Resources,Oil & Gas Exploration & Production,2025,117.61,102.46,-12.88,28.7,3634365,130.19,99.31
+EQT,EQT Corporation,Oil & Gas Exploration & Production,2019,18.27,10.09,-44.77,51.88,5067329,19.99,7.81
+EQT,EQT Corporation,Oil & Gas Exploration & Production,2020,9.59,11.83,23.38,86.24,7192379,15.99,4.62
+EQT,EQT Corporation,Oil & Gas Exploration & Production,2021,12.49,20.31,62.64,54.36,6184635,21.54,12.49
+EQT,EQT Corporation,Oil & Gas Exploration & Production,2022,20.32,32.01,57.57,57.74,8458921,47.72,18.38
+EQT,EQT Corporation,Oil & Gas Exploration & Production,2023,30.11,37.2,23.54,37.31,6045452,42.87,27.41
+EQT,EQT Corporation,Oil & Gas Exploration & Production,2024,37.45,45.17,20.6,33.05,7119663,45.93,29.32
+EQT,EQT Corporation,Oil & Gas Exploration & Production,2025,46.38,53.13,14.56,37.86,8170336,60.64,45.3
+EXE,Expand Energy,Oil & Gas Exploration & Production,2021,35.16,51.47,46.39,36.89,1247875,53.66,32.51
+EXE,Expand Energy,Oil & Gas Exploration & Production,2022,53.09,83.56,57.39,47.73,2041696,91.64,50.29
+EXE,Expand Energy,Oil & Gas Exploration & Production,2023,76.26,71.21,-6.62,29.71,1591116,82.95,64.44
+EXE,Expand Energy,Oil & Gas Exploration & Production,2024,71.26,94.84,33.09,25.33,2121932,96.19,66.44
+EXE,Expand Energy,Oil & Gas Exploration & Production,2025,96.43,108.45,12.47,31.18,3585527,120.76,90.98
+FANG,Diamondback Energy,Oil & Gas Exploration & Production,2019,72.62,71.34,-1.75,38.12,1864399,86.89,57.0
+FANG,Diamondback Energy,Oil & Gas Exploration & Production,2020,71.18,38.53,-45.88,103.15,3560383,74.08,12.03
+FANG,Diamondback Energy,Oil & Gas Exploration & Production,2021,38.96,87.65,125.0,53.24,2710443,93.94,38.96
+FANG,Diamondback Energy,Oil & Gas Exploration & Production,2022,90.89,118.62,30.51,47.12,2758927,142.9,89.2
+FANG,Diamondback Energy,Oil & Gas Exploration & Production,2023,113.94,141.95,24.58,29.22,2033182,152.24,108.66
+FANG,Diamondback Energy,Oil & Gas Exploration & Production,2024,143.71,156.63,8.99,28.21,1811962,198.29,136.95
+FANG,Diamondback Energy,Oil & Gas Exploration & Production,2025,159.45,147.81,-7.3,38.79,2204714,172.26,114.81
+HAL,Halliburton,Oil & Gas Equipment & Services,2019,23.36,21.63,-7.41,37.9,11900582,27.64,15.02
+HAL,Halliburton,Oil & Gas Equipment & Services,2020,21.81,17.04,-21.9,93.0,19197825,22.44,4.12
+HAL,Halliburton,Oil & Gas Equipment & Services,2021,16.97,20.78,22.45,44.24,9469698,24.0,15.58
+HAL,Halliburton,Oil & Gas Equipment & Services,2022,21.8,36.26,66.31,51.32,11518674,39.3,21.41
+HAL,Halliburton,Oil & Gas Equipment & Services,2023,34.7,33.91,-2.28,36.2,8303364,40.4,25.8
+HAL,Halliburton,Oil & Gas Equipment & Services,2024,33.88,26.05,-23.13,27.47,8199553,38.87,24.69
+HAL,Halliburton,Oil & Gas Equipment & Services,2025,26.56,27.88,4.94,43.03,13013746,28.72,18.58
+KMI,Kinder Morgan,Oil & Gas Storage & Transportation,2019,10.2,14.35,40.59,16.82,13460492,14.37,10.15
+KMI,Kinder Morgan,Oil & Gas Storage & Transportation,2020,14.26,9.93,-30.34,55.79,16104639,15.25,6.84
+KMI,Kinder Morgan,Oil & Gas Storage & Transportation,2021,9.85,12.29,24.76,24.92,15212222,14.38,9.85
+KMI,Kinder Morgan,Oil & Gas Storage & Transportation,2022,12.67,14.9,17.6,27.41,17133278,16.09,12.67
+KMI,Kinder Morgan,Oil & Gas Storage & Transportation,2023,14.85,15.52,4.52,17.35,13095558,15.7,13.62
+KMI,Kinder Morgan,Oil & Gas Storage & Transportation,2024,15.68,25.51,62.68,18.61,13711117,26.58,14.82
+KMI,Kinder Morgan,Oil & Gas Storage & Transportation,2025,26.18,26.73,2.1,25.07,14074210,29.07,23.72
+MPC,Marathon Petroleum,Oil & Gas Refining & Marketing,2019,47.08,49.4,4.93,32.25,6375509,55.31,35.89
+MPC,Marathon Petroleum,Oil & Gas Refining & Marketing,2020,50.76,35.87,-29.33,83.44,8662020,50.76,13.76
+MPC,Marathon Petroleum,Oil & Gas Refining & Marketing,2021,35.34,57.75,63.41,32.02,6310176,61.25,35.34
+MPC,Marathon Petroleum,Oil & Gas Refining & Marketing,2022,59.26,107.78,81.88,36.24,5584001,117.23,59.26
+MPC,Marathon Petroleum,Oil & Gas Refining & Marketing,2023,102.71,140.61,36.89,30.35,3585753,147.36,97.86
+MPC,Marathon Petroleum,Oil & Gas Refining & Marketing,2024,144.4,134.9,-6.58,29.58,2657353,208.69,127.31
+MPC,Marathon Petroleum,Oil & Gas Refining & Marketing,2025,136.83,160.76,17.49,34.43,2398810,196.84,115.3
+OKE,Oneok,Oil & Gas Storage & Transportation,2019,33.34,48.85,46.51,19.47,2164666,49.15,33.26
+OKE,Oneok,Oil & Gas Storage & Transportation,2020,48.88,27.63,-43.48,93.43,5362115,50.67,10.05
+OKE,Oneok,Oil & Gas Storage & Transportation,2021,26.99,45.49,68.53,30.57,2630101,50.27,26.99
+OKE,Oneok,Oil & Gas Storage & Transportation,2022,46.44,54.07,16.42,34.36,2703014,57.9,40.98
+OKE,Oneok,Oil & Gas Storage & Transportation,2023,52.62,61.21,16.33,24.13,3513628,62.02,47.91
+OKE,Oneok,Oil & Gas Storage & Transportation,2024,61.91,91.88,48.41,21.08,2816354,107.12,60.03
+OKE,Oneok,Oil & Gas Storage & Transportation,2025,93.14,70.8,-23.98,30.35,3938448,100.53,61.95
+OXY,Occidental Petroleum,Oil & Gas Exploration & Production,2019,52.24,37.09,-29.0,29.49,8649775,58.3,33.3
+OXY,Occidental Petroleum,Oil & Gas Exploration & Production,2020,38.33,16.09,-58.03,109.45,30572184,42.54,8.25
+OXY,Occidental Petroleum,Oil & Gas Exploration & Production,2021,16.22,26.98,66.37,57.35,17600875,32.89,16.22
+OXY,Occidental Petroleum,Oil & Gas Exploration & Production,2022,28.9,59.11,104.5,55.4,25502683,71.14,28.9
+OXY,Occidental Petroleum,Oil & Gas Exploration & Production,2023,57.29,56.7,-1.03,27.71,10924755,63.7,52.75
+OXY,Occidental Petroleum,Oil & Gas Exploration & Production,2024,57.02,47.68,-16.39,21.85,9636627,66.0,43.77
+OXY,Occidental Petroleum,Oil & Gas Exploration & Production,2025,48.06,40.55,-15.63,36.45,11144001,50.85,35.02
+PSX,Phillips 66,Oil & Gas Refining & Marketing,2019,65.04,85.19,30.98,21.05,2563606,90.84,60.76
+PSX,Phillips 66,Oil & Gas Refining & Marketing,2020,85.79,56.35,-34.32,69.82,3796306,85.79,32.51
+PSX,Phillips 66,Oil & Gas Refining & Marketing,2021,56.3,61.14,8.6,35.32,3025125,76.23,53.6
+PSX,Phillips 66,Oil & Gas Refining & Marketing,2022,63.91,91.46,43.1,39.33,3851440,98.67,63.91
+PSX,Phillips 66,Oil & Gas Refining & Marketing,2023,88.78,121.71,37.09,28.54,3307398,124.07,81.49
+PSX,Phillips 66,Oil & Gas Refining & Marketing,2024,122.76,107.56,-12.38,25.52,2696239,159.02,104.18
+PSX,Phillips 66,Oil & Gas Refining & Marketing,2025,108.01,126.39,17.02,35.56,2994694,140.86,88.47
+SLB,Schlumberger,Oil & Gas Equipment & Services,2019,30.07,34.34,14.18,33.61,10689401,38.77,25.87
+SLB,Schlumberger,Oil & Gas Equipment & Services,2020,34.31,19.29,-43.77,77.44,15719525,34.87,10.44
+SLB,Schlumberger,Oil & Gas Equipment & Services,2021,19.4,26.93,38.83,40.94,12190659,32.56,19.28
+SLB,Schlumberger,Oil & Gas Equipment & Services,2022,28.52,48.79,71.04,49.81,14134947,49.86,28.36
+SLB,Schlumberger,Oil & Gas Equipment & Services,2023,47.0,48.41,3.0,33.67,9261822,57.49,39.27
+SLB,Schlumberger,Oil & Gas Equipment & Services,2024,48.35,36.56,-24.38,26.65,11261021,51.66,35.12
+SLB,Schlumberger,Oil & Gas Equipment & Services,2025,36.62,37.76,3.11,36.33,16016760,41.71,30.68
+TPL,Texas Pacific Land Corporation,Oil & Gas Exploration & Production,2019,56.17,78.13,39.1,37.13,148817,90.11,56.17
+TPL,Texas Pacific Land Corporation,Oil & Gas Exploration & Production,2020,77.52,75.63,-2.43,71.38,265745,81.94,31.61
+TPL,Texas Pacific Land Corporation,Oil & Gas Exploration & Production,2021,78.71,131.03,66.48,49.78,399339,182.82,78.71
+TPL,Texas Pacific Land Corporation,Oil & Gas Exploration & Production,2022,133.68,250.65,87.5,50.67,306534,289.95,104.84
+TPL,Texas Pacific Land Corporation,Oil & Gas Exploration & Production,2023,224.81,169.44,-24.63,36.49,336913,225.45,137.71
+TPL,Texas Pacific Land Corporation,Oil & Gas Exploration & Production,2024,172.91,364.84,111.0,46.54,402610,570.13,153.51
+TPL,Texas Pacific Land Corporation,Oil & Gas Exploration & Production,2025,389.29,285.99,-26.53,48.26,412251,472.44,272.4
+TRGP,Targa Resources,Oil & Gas Storage & Transportation,2019,28.67,34.85,21.55,34.59,2251730,38.17,27.08
+TRGP,Targa Resources,Oil & Gas Storage & Transportation,2020,34.66,23.53,-32.12,114.02,3669632,35.82,4.14
+TRGP,Targa Resources,Oil & Gas Storage & Transportation,2021,23.33,47.1,101.83,36.83,1798970,52.14,23.33
+TRGP,Targa Resources,Oil & Gas Storage & Transportation,2022,48.0,67.68,41.01,41.06,1990265,73.25,48.0
+TRGP,Targa Resources,Oil & Gas Storage & Transportation,2023,65.06,81.9,25.89,25.33,1598411,85.28,61.84
+TRGP,Targa Resources,Oil & Gas Storage & Transportation,2024,81.48,172.09,111.22,23.98,1668784,200.23,76.83
+TRGP,Targa Resources,Oil & Gas Storage & Transportation,2025,176.49,181.82,3.02,35.97,1735574,209.42,143.22
+VLO,Valero Energy,Oil & Gas Refining & Marketing,2019,55.89,72.24,29.25,28.15,3381090,77.52,53.23
+VLO,Valero Energy,Oil & Gas Refining & Marketing,2020,73.38,46.46,-36.69,80.08,4988926,74.74,25.46
+VLO,Valero Energy,Oil & Gas Refining & Marketing,2021,45.77,65.16,42.37,37.5,3885756,71.26,45.77
+VLO,Valero Energy,Oil & Gas Refining & Marketing,2022,66.92,114.0,70.35,44.9,4555421,128.34,66.92
+VLO,Valero Energy,Oil & Gas Refining & Marketing,2023,107.87,120.68,11.88,32.82,3912836,135.53,94.42
+VLO,Valero Energy,Oil & Gas Refining & Marketing,2024,121.3,117.11,-3.45,29.15,2926422,171.54,113.29
+VLO,Valero Energy,Oil & Gas Refining & Marketing,2025,117.65,160.42,36.35,37.25,3068196,181.58,100.83
+WMB,Williams Companies,Oil & Gas Storage & Transportation,2019,14.88,16.7,12.29,20.55,8162488,19.75,14.88
+WMB,Williams Companies,Oil & Gas Storage & Transportation,2020,16.54,15.34,-7.3,64.05,11612404,17.08,6.68
+WMB,Williams Companies,Oil & Gas Storage & Transportation,2021,15.37,21.22,38.01,22.77,7934317,23.72,15.37
+WMB,Williams Companies,Oil & Gas Storage & Transportation,2022,21.59,28.18,30.53,28.81,8137296,31.22,21.59
+WMB,Williams Companies,Oil & Gas Storage & Transportation,2023,27.54,31.53,14.47,19.06,6736963,33.32,24.61
+WMB,Williams Companies,Oil & Gas Storage & Transportation,2024,32.15,51.18,59.2,19.56,6365437,56.01,29.92
+WMB,Williams Companies,Oil & Gas Storage & Transportation,2025,52.85,58.82,11.29,27.14,7418246,62.57,51.09
+XOM,ExxonMobil,Integrated Oil & Gas,2019,49.35,51.78,4.92,18.25,11619611,59.69,48.59
+XOM,ExxonMobil,Integrated Oil & Gas,2020,52.61,33.03,-37.22,52.84,28811418,52.61,23.67
+XOM,ExxonMobil,Integrated Oil & Gas,2021,33.25,52.04,56.51,29.46,23986906,55.69,33.25
+XOM,ExxonMobil,Integrated Oil & Gas,2022,54.04,97.53,80.48,35.09,25323267,100.96,54.04
+XOM,ExxonMobil,Integrated Oil & Gas,2023,94.18,91.43,-2.93,25.07,17480114,108.92,88.96
+XOM,ExxonMobil,Integrated Oil & Gas,2024,93.6,101.72,8.67,19.24,16296015,117.59,88.52
+XOM,ExxonMobil,Integrated Oil & Gas,2025,101.48,117.97,16.26,23.41,16054721,118.61,95.34

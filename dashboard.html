@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard &ndash; S&amp;P 500 Energy Sector</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="brand">S&amp;P 500 Energy Sector Dashboard</div>
+  <nav>
+    <a href="index.html">Report</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025?</h1>
+  <p class="byline">Filter by year, sub-industry, or company &middot; 21 companies &middot; 2019&ndash;2025 &middot; Gabe Sosa</p>
+
+  <section class="filters">
+    <div class="filter-field">
+      <label for="f-year">Year</label>
+      <select id="f-year" multiple size="5"></select>
+    </div>
+    <div class="filter-field">
+      <label for="f-sub">Sub-industry</label>
+      <select id="f-sub" multiple size="5"></select>
+    </div>
+    <div class="filter-field">
+      <label for="f-ticker">Company</label>
+      <select id="f-ticker" multiple size="5"></select>
+    </div>
+    <button id="reset-btn" type="button">Reset filters</button>
+  </section>
+
+  <section class="stat-grid">
+    <div class="stat-tile">
+      <div class="value" id="stat-companies">&ndash;</div>
+      <div class="label">Companies in current view</div>
+    </div>
+    <div class="stat-tile">
+      <div class="value" id="stat-avgreturn">&ndash;</div>
+      <div class="label">Average annual return</div>
+    </div>
+    <div class="stat-tile">
+      <div class="value" id="stat-top">&ndash;</div>
+      <div class="label">Best cumulative return (<span id="stat-top-sub"></span>)</div>
+    </div>
+    <div class="stat-tile">
+      <div class="value" id="stat-avgvol">&ndash;</div>
+      <div class="label">Average annual volatility</div>
+    </div>
+  </section>
+
+  <div class="dash-grid">
+    <div class="chart-card wide">
+      <canvas id="chart-companies"></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas id="chart-years"></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas id="chart-subs"></canvas>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <p class="chart-caption" id="row-count"></p>
+    <table class="data-table" id="data-table">
+      <thead>
+        <tr>
+          <th>Ticker</th><th>Company</th><th>Year</th><th>Annual return</th><th>Volatility</th><th>Avg. daily volume</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="app.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

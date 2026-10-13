@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>S&amp;P 500 Energy Sector, 2019&ndash;2025</title>
+<meta name="description" content="Which S&P 500 Energy companies outperformed from 2019 to 2025, and what set them apart?" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="brand">S&amp;P 500 Energy Sector Dashboard</div>
+  <nav>
+    <a href="index.html" class="active">Report</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025, and what set them apart?</h1>
+  <p class="byline">21 S&amp;P 500 Energy-sector companies &middot; 145 company-years &middot; 2019&ndash;2025 &middot; Gabe Sosa</p>
+
+  <p class="lede">
+    Midstream pipeline companies &mdash; led by <strong id="lede-top-ticker"></strong>, up <strong id="lede-top-return"></strong>
+    since 2019 &mdash; delivered the sector's best returns while carrying less price risk than exploration &amp;
+    production names, making <span id="lede-best-sub"></span> the strongest place to build a buy list.
+    <strong id="lede-loser-ticker"></strong> was the only company in the sector to lose value over the period.
+    An analyst assembling an energy buy list should weight toward well-run midstream and refining names first,
+    and treat pure-play exploration &amp; production stocks as higher-volatility satellite positions rather than core holdings.
+  </p>
+
+  <section class="stat-grid">
+    <div class="stat-tile">
+      <div class="value" id="stat-companies">&ndash;</div>
+      <div class="label">S&amp;P 500 Energy companies tracked, 2019&ndash;2025</div>
+    </div>
+    <div class="stat-tile">
+      <div class="value" id="stat-avgreturn">&ndash;</div>
+      <div class="label">Average annual return across all company-years</div>
+    </div>
+    <div class="stat-tile">
+      <div class="value" id="stat-top">&ndash;</div>
+      <div class="label">Best cumulative return, 2019&ndash;2025 (<span id="stat-top-sub"></span>)</div>
+    </div>
+    <div class="stat-tile">
+      <div class="value" id="stat-avgvol">&ndash;</div>
+      <div class="label">Average annual price volatility across the sector</div>
+    </div>
+  </section>
+
+  <article class="finding">
+    <h2>Midstream pipeline companies outperformed with less risk than drillers</h2>
+    <p>
+      Companies in the <strong id="f1-best-sub"></strong> sub-industry averaged a
+      <strong id="f1-best-return"></strong> cumulative return from 2019 to 2025, with average annual volatility of
+      just <strong id="f1-best-vol"></strong> &mdash; versus <strong id="f1-worst-sub"></strong>, which averaged
+      <strong id="f1-worst-return"></strong> at <strong id="f1-worst-vol"></strong> average volatility. Pipeline and
+      storage companies earn fee-based income on the volume of oil and gas that moves through their systems, so their
+      results depend less on commodity prices than drillers' do &mdash; which shows up directly in steadier, stronger returns.
+    </p>
+    <div class="chart-card"><canvas id="chart-subindustry"></canvas></div>
+    <p class="chart-caption">Average cumulative return, 2019&ndash;2025, by sub-industry. Source: sp500_energy_panel.csv.</p>
+  </article>
+
+  <article class="finding">
+    <h2>One company lost money while the sector's leaders multiplied in value</h2>
+    <p>
+      <strong id="f2-winner"></strong> led all 21 companies with a <strong id="f2-winner-return"></strong> cumulative
+      return since 2019. At the other end, <strong id="f2-loser"></strong> was the only company to finish 2025 below
+      its 2019 starting price, down <strong id="f2-loser-return"></strong>. The spread between the best and worst
+      performer is wide enough that sub-industry alone doesn't decide outcomes &mdash; company-level execution matters too.
+    </p>
+    <div class="chart-card"><canvas id="chart-companies"></canvas></div>
+    <p class="chart-caption">Cumulative return by company, 2019&ndash;2025, sorted high to low. Source: sp500_energy_panel.csv.</p>
+  </article>
+
+  <article class="finding">
+    <h2>The sector's gains came from two boom years, not steady growth</h2>
+    <p>
+      Energy stocks fell sharply in <strong id="f3-worst-year"></strong>, averaging <strong id="f3-worst-return"></strong>
+      for the year, then surged in <strong id="f3-best-year"></strong> to <strong id="f3-best-return"></strong>. Most of
+      the sector's 2019&ndash;2025 gains were earned in that recovery window, not through steady year-over-year growth,
+      which matters for timing new positions.
+    </p>
+    <div class="chart-card"><canvas id="chart-years"></canvas></div>
+    <p class="chart-caption">Sector average annual return by year. Source: sp500_energy_panel.csv.</p>
+  </article>
+
+  <article class="finding">
+    <h2>Higher volatility did not come with higher returns</h2>
+    <p>
+      Across all 145 company-years, annual volatility and annual return were weakly negatively correlated
+      (r = <strong id="f4-corr"></strong>). The riskiest stock-years did not reliably pay off with the biggest gains &mdash;
+      another reason to favor the steadier midstream and refining names over the most volatile exploration &amp; production stocks.
+    </p>
+    <div class="chart-card"><canvas id="chart-scatter"></canvas></div>
+    <p class="chart-caption">Each point is one company in one year: annual volatility vs. annual return. Source: sp500_energy_panel.csv.</p>
+  </article>
+
+  <section class="closing">
+    <h2>About this data</h2>
+    <dl>
+      <dt>Source</dt>
+      <dd>Daily stock prices from Yahoo Finance (via the <code>yfinance</code> library), 2019&ndash;01&ndash;01 through 2025&ndash;12&ndash;31.
+        The list of companies and their GICS sub-industry comes from Wikipedia's "List of S&amp;P 500 companies," filtered to the
+        current Energy sector (21 companies).</dd>
+      <dt>What one row is</dt>
+      <dd>One row is one S&amp;P 500 Energy-sector company in one calendar year. Each row's price and volume figures are computed
+        from that company's daily closes and volumes during that year.</dd>
+      <dt>Which rows are dropped, and why</dt>
+      <dd>145 of a possible 147 rows (21 companies &times; 7 years) are present. EXE (Expand Energy) is missing 2019 and 2020: it is
+        the post&ndash;Chapter 11 successor ticker to Chesapeake Energy, which only began trading again in February 2021, so no
+        legitimate price exists for it before then.</dd>
+      <dt>A limitation to know about</dt>
+      <dd>This uses today's S&amp;P 500 Energy lineup, not the lineup as it stood in any single past year. A few energy companies
+        that were in the S&amp;P 500 earlier in 2019&ndash;2025 but have since been acquired or merged out &mdash; including Hess
+        (acquired by Chevron) and Marathon Oil (acquired by ConocoPhillips) &mdash; are not included, since they are no longer
+        current constituents. This slightly favors companies that survived as independent acquirers rather than targets.</dd>
+      <dt>How each summary number is computed</dt>
+      <dd>
+        <strong>Companies tracked</strong> is the count of distinct tickers in the file.
+        <strong>Average annual return</strong> is the mean of <code>annual_return_pct</code> across all 145 company-year rows.
+        <strong>Best cumulative return</strong> is, for each company, its last available year's close price divided by its first
+        available year's open price, minus one; the highest value across all 21 companies is shown.
+        <strong>Average annual volatility</strong> is the mean of <code>annual_volatility_pct</code> (the annualized standard
+        deviation of that company's daily returns within the year) across all 145 rows.
+      </dd>
+    </dl>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="app.js"></script>
+<script src="report.js"></script>
+</body>
+</html>
