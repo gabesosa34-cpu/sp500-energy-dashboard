@@ -9,13 +9,12 @@ const SUB_LABEL = {
 };
 
 function chartDefaults() {
-  const styles = getComputedStyle(document.body);
+  const styles = getComputedStyle(document.documentElement);
   return {
     text: styles.getPropertyValue('--text-secondary').trim(),
     muted: styles.getPropertyValue('--text-muted').trim(),
-    grid: styles.getPropertyValue('--gridline').trim(),
-    blue: styles.getPropertyValue('--series-1').trim(),
-    orange: styles.getPropertyValue('--series-2').trim(),
+    grid: styles.getPropertyValue('--grid').trim(),
+    blue: styles.getPropertyValue('--accent').trim(),
     good: styles.getPropertyValue('--good').trim(),
     critical: styles.getPropertyValue('--critical').trim(),
   };
@@ -25,12 +24,26 @@ function baseOptions(c, yLabel) {
   return {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0d1320',
+        borderColor: 'rgba(255,255,255,0.16)',
+        borderWidth: 1,
+        titleColor: '#e8ecf4',
+        bodyColor: '#9aa3b8',
+        padding: 10,
+        cornerRadius: 8,
+        titleFont: { family: "'Inter', sans-serif", weight: '600' },
+        bodyFont: { family: "'JetBrains Mono', monospace" },
+      },
+    },
     scales: {
-      x: { ticks: { color: c.muted, font: { size: 11 } }, grid: { display: false } },
+      x: { ticks: { color: c.muted, font: { size: 11 } }, grid: { display: false }, border: { color: c.grid } },
       y: {
-        ticks: { color: c.muted, font: { size: 11 } },
+        ticks: { color: c.muted, font: { size: 11, family: "'JetBrains Mono', monospace" } },
         grid: { color: c.grid },
+        border: { display: false },
         title: yLabel ? { display: true, text: yLabel, color: c.muted, font: { size: 11 } } : undefined,
       },
     },
@@ -84,8 +97,8 @@ async function main() {
     options: {
       ...baseOptions(c, 'Avg. cumulative return, 2019–2025 (%)'),
       plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.y.toFixed(0)}% avg. cumulative return` } },
+        ...baseOptions(c).plugins,
+        tooltip: { ...baseOptions(c).plugins.tooltip, callbacks: { label: (ctx) => `${ctx.parsed.y.toFixed(0)}% avg. cumulative return` } },
       },
     },
   });
@@ -110,8 +123,9 @@ async function main() {
       ...baseOptions(c, 'Cumulative return, 2019–2025 (%)'),
       indexAxis: 'x',
       plugins: {
-        legend: { display: false },
+        ...baseOptions(c).plugins,
         tooltip: {
+          ...baseOptions(c).plugins.tooltip,
           callbacks: {
             title: (ctx) => companies[ctx[0].dataIndex].company_name,
             label: (ctx) => `${ctx.parsed.y.toFixed(0)}% cumulative return`,
@@ -142,8 +156,8 @@ async function main() {
     options: {
       ...baseOptions(c, 'Sector avg. annual return (%)'),
       plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: (ctx) => `${fmtPct(ctx.parsed.y, 1)} sector average` } },
+        ...baseOptions(c).plugins,
+        tooltip: { ...baseOptions(c).plugins.tooltip, callbacks: { label: (ctx) => `${fmtPct(ctx.parsed.y, 1)} sector average` } },
       },
     },
   });
@@ -173,8 +187,9 @@ async function main() {
         x: { ...baseOptions(c).scales.x, title: { display: true, text: 'Annual volatility (%)', color: c.muted, font: { size: 11 } } },
       },
       plugins: {
-        legend: { display: false },
+        ...baseOptions(c).plugins,
         tooltip: {
+          ...baseOptions(c).plugins.tooltip,
           callbacks: {
             label: (ctx) => {
               const d = ctx.raw;

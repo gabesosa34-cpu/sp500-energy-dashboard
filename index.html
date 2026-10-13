@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>S&amp;P 500 Energy Sector, 2019&ndash;2025</title>
 <meta name="description" content="Which S&P 500 Energy companies outperformed from 2019 to 2025, and what set them apart?" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <header class="navbar">
-  <div class="brand">S&amp;P 500 Energy Sector Dashboard</div>
+  <a href="index.html" class="brand">S&amp;P 500 Energy Sector</a>
   <nav>
     <a href="index.html" class="active">Report</a>
     <a href="dashboard.html">Dashboard</a>
@@ -17,38 +20,49 @@
 </header>
 
 <main>
-  <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025, and what set them apart?</h1>
-  <p class="byline">21 S&amp;P 500 Energy-sector companies &middot; 145 company-years &middot; 2019&ndash;2025 &middot; Gabe Sosa</p>
+  <div class="title-block">
+    <p class="eyebrow">Research note &middot; Energy sector</p>
+    <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025, and what set them apart?</h1>
+    <p class="byline">21 S&amp;P 500 Energy-sector companies<span class="sep">&middot;</span>145 company-years<span class="sep">&middot;</span>2019&ndash;2025<span class="sep">&middot;</span>Gabe Sosa</p>
+    <div class="title-actions">
+      <a href="dashboard.html" class="btn btn-primary">Open the interactive dashboard &rarr;</a>
+    </div>
+  </div>
 
-  <p class="lede">
-    Midstream pipeline companies &mdash; led by <strong id="lede-top-ticker"></strong>, up <strong id="lede-top-return"></strong>
-    since 2019 &mdash; delivered the sector's best returns while carrying less price risk than exploration &amp;
-    production names, making <span id="lede-best-sub"></span> the strongest place to build a buy list.
-    <strong id="lede-loser-ticker"></strong> was the only company in the sector to lose value over the period.
-    An analyst assembling an energy buy list should weight toward well-run midstream and refining names first,
-    and treat pure-play exploration &amp; production stocks as higher-volatility satellite positions rather than core holdings.
-  </p>
+  <section class="summary-panel">
+    <p class="eyebrow">Summary</p>
+    <div class="callout">
+      <p class="lede">
+        Midstream pipeline companies &mdash; led by <strong id="lede-top-ticker"></strong>, up <strong id="lede-top-return"></strong>
+        since 2019 &mdash; delivered the sector's best returns while carrying less price risk than exploration &amp;
+        production names, making <span id="lede-best-sub"></span> the strongest place to build a buy list.
+        <strong id="lede-loser-ticker"></strong> was the only company in the sector to lose value over the period.
+        An analyst assembling an energy buy list should weight toward well-run midstream and refining names first,
+        and treat pure-play exploration &amp; production stocks as higher-volatility satellite positions rather than core holdings.
+      </p>
+    </div>
 
-  <section class="stat-grid">
-    <div class="stat-tile">
-      <div class="value" id="stat-companies">&ndash;</div>
-      <div class="label">S&amp;P 500 Energy companies tracked, 2019&ndash;2025</div>
-    </div>
-    <div class="stat-tile">
-      <div class="value" id="stat-avgreturn">&ndash;</div>
-      <div class="label">Average annual return across all company-years</div>
-    </div>
-    <div class="stat-tile">
-      <div class="value" id="stat-top">&ndash;</div>
-      <div class="label">Best cumulative return, 2019&ndash;2025 (<span id="stat-top-sub"></span>)</div>
-    </div>
-    <div class="stat-tile">
-      <div class="value" id="stat-avgvol">&ndash;</div>
-      <div class="label">Average annual price volatility across the sector</div>
-    </div>
+    <section class="stat-grid summary-panel-stats">
+      <div class="stat-tile">
+        <div class="value" id="stat-companies">&ndash;</div>
+        <div class="label">S&amp;P 500 Energy companies tracked</div>
+      </div>
+      <div class="stat-tile">
+        <div class="value" id="stat-avgreturn">&ndash;</div>
+        <div class="label">Average annual return</div>
+      </div>
+      <div class="stat-tile">
+        <div class="value" id="stat-top">&ndash;</div>
+        <div class="label">Best cumulative return <span id="stat-top-sub"></span></div>
+      </div>
+      <div class="stat-tile">
+        <div class="value" id="stat-avgvol">&ndash;</div>
+        <div class="label">Average annual volatility</div>
+      </div>
+    </section>
   </section>
 
-  <article class="finding">
+  <article class="report-section">
     <h2>Midstream pipeline companies outperformed with less risk than drillers</h2>
     <p>
       Companies in the <strong id="f1-best-sub"></strong> sub-industry averaged a
@@ -62,7 +76,7 @@
     <p class="chart-caption">Average cumulative return, 2019&ndash;2025, by sub-industry. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <article class="finding">
+  <article class="report-section">
     <h2>One company lost money while the sector's leaders multiplied in value</h2>
     <p>
       <strong id="f2-winner"></strong> led all 21 companies with a <strong id="f2-winner-return"></strong> cumulative
@@ -74,7 +88,7 @@
     <p class="chart-caption">Cumulative return by company, 2019&ndash;2025, sorted high to low. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <article class="finding">
+  <article class="report-section">
     <h2>The sector's gains came from two boom years, not steady growth</h2>
     <p>
       Energy stocks fell sharply in <strong id="f3-worst-year"></strong>, averaging <strong id="f3-worst-return"></strong>
@@ -86,7 +100,7 @@
     <p class="chart-caption">Sector average annual return by year. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <article class="finding">
+  <article class="report-section">
     <h2>Higher volatility did not come with higher returns</h2>
     <p>
       Across all 145 company-years, annual volatility and annual return were weakly negatively correlated
@@ -97,8 +111,9 @@
     <p class="chart-caption">Each point is one company in one year: annual volatility vs. annual return. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <section class="closing">
-    <h2>About this data</h2>
+  <section class="closing-panel">
+    <p class="eyebrow">About this data</p>
+    <h2>Methodology &amp; sources</h2>
     <dl>
       <dt>Source</dt>
       <dd>Daily stock prices from Yahoo Finance (via the <code>yfinance</code> library), 2019&ndash;01&ndash;01 through 2025&ndash;12&ndash;31.

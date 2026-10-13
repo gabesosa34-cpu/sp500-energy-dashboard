@@ -185,11 +185,11 @@ function baseOptions(c, yLabel) {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#0f1430',
-        borderColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: '#0d1320',
+        borderColor: 'rgba(255,255,255,0.16)',
         borderWidth: 1,
-        titleColor: '#e9edf8',
-        bodyColor: '#9aa4c2',
+        titleColor: '#e8ecf4',
+        bodyColor: '#9aa3b8',
         padding: 10,
         cornerRadius: 8,
         titleFont: { family: "'Inter', sans-serif", weight: '600' },

@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="dashboard.css" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <header class="navbar">
-  <div class="brand">S&amp;P 500 Energy Sector Dashboard</div>
+  <a href="index.html" class="brand">S&amp;P 500 Energy Sector</a>
   <nav>
     <a href="index.html">Report</a>
     <a href="dashboard.html" class="active">Dashboard</a>
@@ -20,9 +20,9 @@
 
 <main>
   <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025?</h1>
-  <p class="byline">Search by year, sub-industry, or company &middot; 21 companies &middot; 2019&ndash;2025 &middot; Gabe Sosa</p>
+  <p class="byline">Search by year, sub-industry, or company<span class="sep">&middot;</span>21 companies<span class="sep">&middot;</span>2019&ndash;2025<span class="sep">&middot;</span>Gabe Sosa</p>
 
-  <section class="filters glass">
+  <section class="filters">
     <div class="combo" data-filter="year">
       <label id="f-year-label" for="f-year-input">Year</label>
       <div class="combo-input-wrap">
@@ -56,44 +56,44 @@
       <ul role="listbox" id="f-ticker-listbox" class="combo-listbox" hidden></ul>
     </div>
 
-    <button id="reset-btn" type="button">Reset filters</button>
+    <button id="reset-btn" class="btn btn-secondary" type="button">Reset filters</button>
   </section>
 
   <section class="stat-grid">
-    <div class="stat-tile glass">
+    <div class="stat-tile">
       <div class="value" id="stat-companies">&ndash;</div>
       <div class="label">Companies in view</div>
     </div>
-    <div class="stat-tile glass">
+    <div class="stat-tile">
       <div class="value" id="stat-avgreturn">&ndash;</div>
       <div class="label">Average annual return</div>
     </div>
-    <div class="stat-tile glass">
+    <div class="stat-tile">
       <div class="value" id="stat-top">&ndash;</div>
       <div class="label">Best cumulative return <span id="stat-top-sub"></span></div>
     </div>
-    <div class="stat-tile glass">
+    <div class="stat-tile">
       <div class="value" id="stat-avgvol">&ndash;</div>
       <div class="label">Average annual volatility</div>
     </div>
   </section>
 
   <div class="dash-grid">
-    <div class="chart-card wide glass">
+    <div class="chart-card wide">
       <p class="chart-title">Cumulative return by company, 2019&ndash;2025</p>
       <canvas id="chart-companies"></canvas>
     </div>
-    <div class="chart-card glass">
+    <div class="chart-card">
       <p class="chart-title">Sector avg. annual return by year</p>
       <canvas id="chart-years"></canvas>
     </div>
-    <div class="chart-card glass">
+    <div class="chart-card">
       <p class="chart-title">Avg. cumulative return by sub-industry</p>
       <canvas id="chart-subs"></canvas>
     </div>
   </div>
 
-  <div class="table-wrap glass">
+  <div class="table-wrap">
     <div class="table-meta">
       <span id="row-count"></span>
       <span>Click a column to sort</span>
