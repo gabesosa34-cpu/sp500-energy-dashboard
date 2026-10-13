@@ -4,7 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Dashboard &ndash; S&amp;P 500 Energy Sector</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
 <header class="navbar">
@@ -17,65 +20,99 @@
 
 <main>
   <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025?</h1>
-  <p class="byline">Filter by year, sub-industry, or company &middot; 21 companies &middot; 2019&ndash;2025 &middot; Gabe Sosa</p>
+  <p class="byline">Search by year, sub-industry, or company &middot; 21 companies &middot; 2019&ndash;2025 &middot; Gabe Sosa</p>
 
-  <section class="filters">
-    <div class="filter-field">
-      <label for="f-year">Year</label>
-      <select id="f-year" multiple size="5"></select>
+  <section class="filters glass">
+    <div class="combo" data-filter="year">
+      <label id="f-year-label" for="f-year-input">Year</label>
+      <div class="combo-input-wrap">
+        <input type="text" id="f-year-input" role="combobox" aria-expanded="false"
+               aria-controls="f-year-listbox" aria-autocomplete="list" aria-labelledby="f-year-label"
+               autocomplete="off" placeholder="All years" />
+        <button type="button" class="combo-clear" data-clear="year" aria-label="Clear year filter">&times;</button>
+      </div>
+      <ul role="listbox" id="f-year-listbox" class="combo-listbox" hidden></ul>
     </div>
-    <div class="filter-field">
-      <label for="f-sub">Sub-industry</label>
-      <select id="f-sub" multiple size="5"></select>
+
+    <div class="combo" data-filter="sub">
+      <label id="f-sub-label" for="f-sub-input">Sub-industry</label>
+      <div class="combo-input-wrap">
+        <input type="text" id="f-sub-input" role="combobox" aria-expanded="false"
+               aria-controls="f-sub-listbox" aria-autocomplete="list" aria-labelledby="f-sub-label"
+               autocomplete="off" placeholder="All sub-industries" />
+        <button type="button" class="combo-clear" data-clear="sub" aria-label="Clear sub-industry filter">&times;</button>
+      </div>
+      <ul role="listbox" id="f-sub-listbox" class="combo-listbox" hidden></ul>
     </div>
-    <div class="filter-field">
-      <label for="f-ticker">Company</label>
-      <select id="f-ticker" multiple size="5"></select>
+
+    <div class="combo" data-filter="ticker">
+      <label id="f-ticker-label" for="f-ticker-input">Company</label>
+      <div class="combo-input-wrap">
+        <input type="text" id="f-ticker-input" role="combobox" aria-expanded="false"
+               aria-controls="f-ticker-listbox" aria-autocomplete="list" aria-labelledby="f-ticker-label"
+               autocomplete="off" placeholder="All companies" />
+        <button type="button" class="combo-clear" data-clear="ticker" aria-label="Clear company filter">&times;</button>
+      </div>
+      <ul role="listbox" id="f-ticker-listbox" class="combo-listbox" hidden></ul>
     </div>
+
     <button id="reset-btn" type="button">Reset filters</button>
   </section>
 
   <section class="stat-grid">
-    <div class="stat-tile">
+    <div class="stat-tile glass">
       <div class="value" id="stat-companies">&ndash;</div>
-      <div class="label">Companies in current view</div>
+      <div class="label">Companies in view</div>
     </div>
-    <div class="stat-tile">
+    <div class="stat-tile glass">
       <div class="value" id="stat-avgreturn">&ndash;</div>
       <div class="label">Average annual return</div>
     </div>
-    <div class="stat-tile">
+    <div class="stat-tile glass">
       <div class="value" id="stat-top">&ndash;</div>
-      <div class="label">Best cumulative return (<span id="stat-top-sub"></span>)</div>
+      <div class="label">Best cumulative return <span id="stat-top-sub"></span></div>
     </div>
-    <div class="stat-tile">
+    <div class="stat-tile glass">
       <div class="value" id="stat-avgvol">&ndash;</div>
       <div class="label">Average annual volatility</div>
     </div>
   </section>
 
   <div class="dash-grid">
-    <div class="chart-card wide">
+    <div class="chart-card wide glass">
+      <p class="chart-title">Cumulative return by company, 2019&ndash;2025</p>
       <canvas id="chart-companies"></canvas>
     </div>
-    <div class="chart-card">
+    <div class="chart-card glass">
+      <p class="chart-title">Sector avg. annual return by year</p>
       <canvas id="chart-years"></canvas>
     </div>
-    <div class="chart-card">
+    <div class="chart-card glass">
+      <p class="chart-title">Avg. cumulative return by sub-industry</p>
       <canvas id="chart-subs"></canvas>
     </div>
   </div>
 
-  <div class="table-wrap">
-    <p class="chart-caption" id="row-count"></p>
-    <table class="data-table" id="data-table">
-      <thead>
-        <tr>
-          <th>Ticker</th><th>Company</th><th>Year</th><th>Annual return</th><th>Volatility</th><th>Avg. daily volume</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <div class="table-wrap glass">
+    <div class="table-meta">
+      <span id="row-count"></span>
+      <span>Click a column to sort</span>
+    </div>
+    <div class="table-scroll">
+      <table class="data-table" id="data-table">
+        <thead>
+          <tr>
+            <th data-sort="ticker">Ticker</th>
+            <th data-sort="company_name">Company</th>
+            <th data-sort="year">Year</th>
+            <th data-sort="annual_return_pct">Annual return</th>
+            <th data-sort="annual_volatility_pct">Volatility</th>
+            <th data-sort="avg_daily_volume">Avg. daily volume</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 </main>
 
