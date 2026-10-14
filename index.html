@@ -19,8 +19,14 @@
   </nav>
 </header>
 
-<main>
-  <div class="title-block">
+<section class="hero">
+  <div class="photo-bg" aria-hidden="true">
+    <img src="assets/power-plant.jpg" alt=""
+         onerror="this.parentElement.classList.add('photo-fallback'); this.remove();" />
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-content">
     <p class="eyebrow">Research note &middot; Energy sector</p>
     <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025, and what set them apart?</h1>
     <p class="byline">21 S&amp;P 500 Energy-sector companies<span class="sep">&middot;</span>145 company-years<span class="sep">&middot;</span>2019&ndash;2025<span class="sep">&middot;</span>Gabe Sosa</p>
@@ -28,7 +34,9 @@
       <a href="dashboard.html" class="btn btn-primary">Open the interactive dashboard &rarr;</a>
     </div>
   </div>
+</section>
 
+<main>
   <section class="summary-panel">
     <p class="eyebrow">Summary</p>
     <div class="callout">
@@ -48,7 +56,7 @@
         <div class="label">S&amp;P 500 Energy companies tracked</div>
       </div>
       <div class="stat-tile">
-        <div class="value" id="stat-avgreturn">&ndash;</div>
+        <div class="value"><span id="stat-avgreturn">&ndash;</span><span class="trend" id="trend-avgreturn"></span></div>
         <div class="label">Average annual return</div>
       </div>
       <div class="stat-tile">
@@ -62,7 +70,7 @@
     </section>
   </section>
 
-  <article class="report-section">
+  <article class="report-section reveal">
     <h2>Midstream pipeline companies outperformed with less risk than drillers</h2>
     <p>
       Companies in the <strong id="f1-best-sub"></strong> sub-industry averaged a
@@ -76,7 +84,7 @@
     <p class="chart-caption">Average cumulative return, 2019&ndash;2025, by sub-industry. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <article class="report-section">
+  <article class="report-section reveal">
     <h2>One company lost money while the sector's leaders multiplied in value</h2>
     <p>
       <strong id="f2-winner"></strong> led all 21 companies with a <strong id="f2-winner-return"></strong> cumulative
@@ -88,7 +96,19 @@
     <p class="chart-caption">Cumulative return by company, 2019&ndash;2025, sorted high to low. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <article class="report-section">
+  <div class="section-divider reveal">
+    <div class="photo-bg" aria-hidden="true">
+      <img src="assets/solar-field.jpg" alt=""
+           onerror="this.parentElement.classList.add('photo-fallback'); this.remove();" />
+    </div>
+    <div class="divider-overlay" aria-hidden="true"></div>
+    <div class="divider-caption">
+      <p class="eyebrow">Sector in transition</p>
+      <p>The same companies racing to expand renewables and lower-carbon output are the ones setting the return and risk patterns below.</p>
+    </div>
+  </div>
+
+  <article class="report-section reveal">
     <h2>The sector's gains came from two boom years, not steady growth</h2>
     <p>
       Energy stocks fell sharply in <strong id="f3-worst-year"></strong>, averaging <strong id="f3-worst-return"></strong>
@@ -100,7 +120,7 @@
     <p class="chart-caption">Sector average annual return by year. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <article class="report-section">
+  <article class="report-section reveal">
     <h2>Higher volatility did not come with higher returns</h2>
     <p>
       Across all 145 company-years, annual volatility and annual return were weakly negatively correlated
@@ -111,7 +131,7 @@
     <p class="chart-caption">Each point is one company in one year: annual volatility vs. annual return. Source: sp500_energy_panel.csv.</p>
   </article>
 
-  <section class="closing-panel">
+  <section class="closing-panel reveal">
     <p class="eyebrow">About this data</p>
     <h2>Methodology &amp; sources</h2>
     <dl>
@@ -144,9 +164,22 @@
   </section>
 </main>
 
+<footer class="site-footer">
+  <div class="photo-bg" aria-hidden="true">
+    <img src="assets/solar-hillside.jpg" alt="" loading="lazy"
+         onerror="this.parentElement.classList.add('photo-fallback'); this.remove();" />
+  </div>
+  <div class="footer-overlay" aria-hidden="true"></div>
+  <div class="footer-content">
+    <span><strong>Gabe Sosa</strong> &middot; S&amp;P 500 Energy sector research</span>
+    <span>Data period: 2019&ndash;2025</span>
+  </div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="app.js"></script>
 <script src="report.js"></script>
+<script src="site.js"></script>
 </body>
 </html>

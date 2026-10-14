@@ -8,6 +8,23 @@ const SUB_LABEL = {
   'Oil & Gas Equipment & Services': 'Equipment & services',
 };
 
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function animateValue(el, to, formatFn, duration = 900) {
+  if (REDUCED_MOTION) {
+    el.textContent = formatFn(to);
+    return;
+  }
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+    el.textContent = formatFn(to * eased);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
 function chartDefaults() {
   const styles = getComputedStyle(document.documentElement);
   return {
@@ -24,6 +41,7 @@ function baseOptions(c, yLabel) {
   return {
     responsive: true,
     maintainAspectRatio: false,
+    animation: REDUCED_MOTION ? false : { duration: 700, easing: 'easeOutCubic' },
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -58,14 +76,21 @@ async function main() {
   const subs = subIndustrySummary(rows);
   const years = yearSummary(rows);
 
-  // --- Stat tiles ---
-  document.getElementById('stat-companies').textContent = nCompanies;
-  document.getElementById('stat-avgreturn').textContent = fmtPct(avgReturn);
-  document.getElementById('stat-avgreturn').classList.add(avgReturn >= 0 ? 'good' : 'critical');
-  document.getElementById('stat-top').textContent = fmtPct(top.cum_return_pct, 0);
-  document.getElementById('stat-top').classList.add('good');
+  // --- Stat tiles (count up on load) ---
+  const returnEl = document.getElementById('stat-avgreturn');
+  const topEl = document.getElementById('stat-top');
+  const trendEl = document.getElementById('trend-avgreturn');
+
+  animateValue(document.getElementById('stat-companies'), nCompanies, (v) => Math.round(v));
+  animateValue(returnEl, avgReturn, (v) => fmtPct(v));
+  animateValue(topEl, top.cum_return_pct, (v) => fmtPct(v, 0));
+  animateValue(document.getElementById('stat-avgvol'), avgVol, (v) => `${v.toFixed(1)}%`);
+
+  returnEl.className = 'value ' + (avgReturn >= 0 ? 'good' : 'critical');
+  trendEl.textContent = avgReturn >= 0 ? '▲' : '▼';
+  trendEl.className = 'trend ' + (avgReturn >= 0 ? 'good' : 'critical');
+  topEl.className = 'value good';
   document.getElementById('stat-top-sub').textContent = `${top.company_name} (${top.ticker})`;
-  document.getElementById('stat-avgvol').textContent = `${avgVol.toFixed(1)}%`;
 
   // --- Opening paragraph fill-ins ---
   const best = subs.slice().sort((a, b) => b.avg_cum_return - a.avg_cum_return)[0];

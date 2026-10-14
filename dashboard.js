@@ -151,7 +151,13 @@ function createCombobox({ prefix, items, allLabel, onChange }) {
 /* ---------------------------------------------------------------- */
 /* KPI count-up                                                      */
 /* ---------------------------------------------------------------- */
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 function animateValue(el, from, to, formatFn, duration = 450) {
+  if (REDUCED_MOTION) {
+    el.textContent = formatFn(to);
+    return;
+  }
   const start = performance.now();
   const d = to - from;
   function step(now) {
@@ -181,7 +187,7 @@ function baseOptions(c, yLabel) {
   return {
     responsive: true,
     maintainAspectRatio: false,
-    animation: { duration: 300 },
+    animation: REDUCED_MOTION ? false : { duration: 700, easing: 'easeOutCubic' },
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -300,15 +306,19 @@ function render() {
   const topEl = document.getElementById('stat-top');
   const volEl = document.getElementById('stat-avgvol');
   const topSubEl = document.getElementById('stat-top-sub');
+  const trendEl = document.getElementById('trend-avgreturn');
 
   if (empty) {
     [companiesEl, returnEl, topEl, volEl].forEach((el) => (el.textContent = '–'));
     topSubEl.textContent = '';
     returnEl.className = 'value';
+    trendEl.textContent = '';
     prevStat = { companies: 0, avgReturn: 0, top: 0, avgVol: 0 };
   } else {
     const { nCompanies, avgReturn, avgVol, top } = summaryNumbers(rows);
     returnEl.className = 'value ' + (avgReturn >= 0 ? 'good' : 'critical');
+    trendEl.textContent = avgReturn >= 0 ? '▲' : '▼';
+    trendEl.className = 'trend ' + (avgReturn >= 0 ? 'good' : 'critical');
     topSubEl.textContent = `(${top.ticker})`;
 
     animateValue(companiesEl, prevStat.companies, nCompanies, (v) => Math.round(v));
