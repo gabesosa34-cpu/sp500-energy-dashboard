@@ -3,12 +3,11 @@
    Institutional energy-sector research: dusk navy-violet, amber +
    solar-cyan accents pulled from the reference photos, restrained motion.
 
-   Note on backdrop-filter: used ONLY on the hero photo overlay (an
-   isolated decorative layer with no interactive descendants). Every
-   other blur/dim effect (ambient page background, section dividers)
-   is done by filtering the <img> itself or layering a gradient on top
-   of it — never backdrop-filter on an ancestor of the filter bar or
-   its dropdowns, which is what caused the earlier stacking bug.
+   Note on backdrop-filter: not used anywhere in this file. Every photo
+   band's blur/dim comes from filtering the photo layer itself (see
+   .photo-bg below) plus a plain gradient overlay on top of it — never
+   backdrop-filter on an ancestor of the filter bar or its dropdowns,
+   which is what caused the earlier stacking bug.
    ============================================================ */
 
 :root {
@@ -19,6 +18,24 @@
   --panel-raised:  rgba(21, 26, 50, 0.95);
   --border:        rgba(255, 255, 255, 0.09);
   --border-strong: rgba(255, 255, 255, 0.18);
+  --bg-violet:     #211a4a; /* the "violet" end of the navy-to-violet band gradient */
+
+  /* Background photos — change these three lines to swap every photo
+     band sitewide. Recommended source size: 2400x1200px for the hero
+     (--img-hero); landscape, roughly 2:1, for the others. Photos are
+     shown at their native pixel size only (never upscaled — see
+     .photo-bg below) and fade into the gradient at their edges, so a
+     smaller source still looks intentional.
+     For a sharp candidate on high-DPI screens, add e.g.
+     --img-hero-2x: url("assets/power-plant@2x.jpg"); and reference it
+     as a second image-set() descriptor: image-set(var(--img-hero) 1x,
+     var(--img-hero-2x) 2x). */
+  --img-hero:   url("assets/power-plant.jpg");
+  --img-report: url("assets/solar-field.jpg");
+  --img-footer: url("assets/solar-hillside.jpg");
+
+  /* Fine film-grain texture (SVG, baked-in ~5% alpha) for the hero */
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
   /* Primary accent — amber/gold plant lighting: numbers, active states, highlights */
   --amber:      #ffb547;
@@ -83,33 +100,48 @@ a { color: var(--cyan); }
   border-radius: 4px;
 }
 
+/* ---------- Shared "softened photo band" component ---------- */
+/* Used by .hero, .page-bg, .section-divider, .site-footer. The photo
+   layer (::before) never renders larger than its native pixel size
+   (background-size: auto — no stretching, no upscaling) and is
+   centered with feathered edges (mask-image) over an always-visible
+   navy-violet gradient on the parent, so the rest of the band is
+   filled by the gradient rather than a stretched image. If the image
+   fails to load, that ::before layer simply doesn't paint and the
+   gradient shows through on its own — a pure-CSS fallback, no JS. */
+.photo-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-violet), var(--bg));
+}
+.photo-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto; /* native pixel size only, never larger */
+  filter: blur(3px) brightness(0.6) saturate(1.05);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 35%, transparent 85%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 35%, transparent 85%);
+}
+
 /* ---------- Ambient page background (dashboard body) ---------- */
-/* Fixed, very low visibility, pre-blurred on the image itself — never
-   backdrop-filter, so it can never affect any descendant's stacking. */
+/* Fixed, very low visibility — never backdrop-filter, so it can never
+   affect any descendant's stacking. */
 .page-bg {
   position: fixed;
   inset: 0;
   z-index: -2;
-  overflow: hidden;
   pointer-events: none;
 }
-.page-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 55%;
-  filter: blur(3px) brightness(0.55) saturate(1.05);
-  opacity: 0.22; /* combined with the overlay below ≈ 8-12% apparent visibility */
-}
+.page-bg .photo-bg::before { background-image: image-set(var(--img-footer) 1x); }
 .page-bg .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(10, 14, 31, 0.86), rgba(10, 14, 31, 0.95) 60%, var(--bg) 100%);
 }
-.page-bg.photo-fallback {
-  background: radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(56, 189, 248, 0.06), transparent 60%), var(--bg);
-}
-.page-bg.photo-fallback img { display: none; }
 
 @keyframes kenburns {
   from { transform: scale(1); }
@@ -139,30 +171,16 @@ a { color: var(--cyan); }
   padding: 88px 28px 64px;
   margin-bottom: 8px;
 }
-.hero .photo-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 0;
-}
-.hero .photo-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 38%;
-  filter: brightness(0.7) saturate(1.08);
+.hero .photo-bg { z-index: 0; }
+.hero .photo-bg::before {
+  background-image: image-set(var(--img-hero) 1x);
   animation: kenburns 30s ease-in-out infinite alternate;
 }
-.hero .photo-bg.photo-fallback {
-  background: linear-gradient(135deg, var(--bg-2), var(--bg));
-}
-.hero .photo-bg.photo-fallback img { display: none; }
 .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(10, 14, 31, 0.68) 0%, rgba(10, 14, 31, 0.82) 55%, var(--bg) 100%);
-  backdrop-filter: blur(1.5px); /* the one sanctioned use — isolated, non-interactive, no descendants */
+  background: linear-gradient(180deg, rgba(10, 14, 31, 0.78) 0%, rgba(10, 14, 31, 0.85) 55%, var(--bg) 100%);
 }
 .hero-glow {
   position: absolute;
@@ -177,9 +195,19 @@ a { color: var(--cyan); }
   animation: pulseGlow 7s ease-in-out infinite;
   pointer-events: none;
 }
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: var(--noise);
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+  pointer-events: none;
+}
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   max-width: var(--content-max);
   margin: 0 auto;
 }
@@ -623,16 +651,11 @@ table.data-table tbody tr:hover { background: var(--amber-soft); }
   margin-top: 56px;
   overflow: hidden;
 }
-.site-footer .photo-bg { position: absolute; inset: 0; z-index: 0; }
-.site-footer .photo-bg img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 60%;
-  filter: brightness(0.5) saturate(1.05);
-}
-.site-footer .photo-bg.photo-fallback { background: linear-gradient(180deg, var(--bg-2), var(--bg)); }
-.site-footer .photo-bg.photo-fallback img { display: none; }
+.site-footer .photo-bg { z-index: 0; }
+.site-footer .photo-bg::before { background-image: image-set(var(--img-footer) 1x); }
 .site-footer .footer-overlay {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, var(--bg) 0%, rgba(10, 14, 31, 0.82) 35%, rgba(10, 14, 31, 0.9) 100%);
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(10, 14, 31, 0.8) 35%, rgba(10, 14, 31, 0.85) 100%);
 }
 .site-footer .footer-content {
   position: relative;
@@ -719,16 +742,10 @@ table.data-table tbody tr:hover { background: var(--amber-soft); }
   margin: 36px 0;
   box-shadow: var(--shadow-md);
 }
-.section-divider .photo-bg { position: absolute; inset: 0; }
-.section-divider .photo-bg img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 45%;
-  filter: brightness(0.6) saturate(1.1);
-}
-.section-divider .photo-bg.photo-fallback { background: linear-gradient(120deg, var(--bg-2), var(--bg)); }
-.section-divider .photo-bg.photo-fallback img { display: none; }
+.section-divider .photo-bg::before { background-image: image-set(var(--img-report) 1x); }
 .section-divider .divider-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(10, 14, 31, 0.88), rgba(10, 14, 31, 0.35) 55%, rgba(10, 14, 31, 0.88));
+  background: linear-gradient(90deg, rgba(10, 14, 31, 0.85), rgba(10, 14, 31, 0.75) 55%, rgba(10, 14, 31, 0.85));
 }
 .section-divider .divider-caption {
   position: relative;
