@@ -1,5 +1,5 @@
 // Renders dashboard.html: searchable combobox filters recompute the four summary numbers,
-// three charts, and a sortable/scrollable table live. Calculations come from app.js (unchanged).
+// two charts, and a sortable/scrollable table live. Calculations come from app.js (unchanged).
 
 const SUB_LABEL = {
   'Oil & Gas Storage & Transportation': 'Midstream / pipelines',
@@ -153,7 +153,7 @@ function createCombobox({ prefix, items, allLabel, onChange }) {
 /* ---------------------------------------------------------------- */
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function animateValue(el, from, to, formatFn, duration = 450) {
+function animateValue(el, from, to, formatFn, duration = 600) {
   if (REDUCED_MOTION) {
     el.textContent = formatFn(to);
     return;
@@ -175,11 +175,11 @@ function animateValue(el, from, to, formatFn, duration = 450) {
 function chartColors() {
   const s = getComputedStyle(document.documentElement);
   return {
-    muted: s.getPropertyValue('--text-muted').trim(),
-    grid: s.getPropertyValue('--grid').trim(),
+    muted: s.getPropertyValue('--text-dim').trim(),
+    grid: s.getPropertyValue('--border').trim(),
     accent: s.getPropertyValue('--accent').trim(),
-    good: s.getPropertyValue('--good').trim(),
-    critical: s.getPropertyValue('--critical').trim(),
+    positive: s.getPropertyValue('--positive').trim(),
+    negative: s.getPropertyValue('--negative').trim(),
   };
 }
 
@@ -192,10 +192,10 @@ function baseOptions(c, yLabel) {
       legend: { display: false },
       tooltip: {
         backgroundColor: '#0d1320',
-        borderColor: 'rgba(255,255,255,0.16)',
+        borderColor: 'rgba(255,255,255,0.14)',
         borderWidth: 1,
-        titleColor: '#e8ecf4',
-        bodyColor: '#9aa3b8',
+        titleColor: '#e6edf7',
+        bodyColor: '#8b98ad',
         padding: 10,
         cornerRadius: 8,
         titleFont: { family: "'Inter', sans-serif", weight: '600' },
@@ -214,37 +214,68 @@ function baseOptions(c, yLabel) {
   };
 }
 
+function accentAreaGradient(context) {
+  const { ctx, chartArea } = context.chart;
+  if (!chartArea) return null;
+  const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+  g.addColorStop(0, 'rgba(34, 211, 238, 0.32)');
+  g.addColorStop(1, 'rgba(34, 211, 238, 0)');
+  return g;
+}
+
 function initCharts() {
   const c = chartColors();
 
+  // Main chart (8 cols): sector average annual return over time — line + gradient area fill.
+  charts.years = new Chart(document.getElementById('chart-years'), {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        data: [],
+        borderColor: c.accent,
+        borderWidth: 2,
+        backgroundColor: accentAreaGradient,
+        fill: 'origin',
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: c.accent,
+        pointBorderColor: '#070b14',
+        pointBorderWidth: 1.5,
+        pointHoverRadius: 5,
+      }],
+    },
+    options: {
+      ...baseOptions(c, 'Avg. annual return (%)'),
+      plugins: {
+        ...baseOptions(c).plugins,
+        tooltip: { ...baseOptions(c).plugins.tooltip, callbacks: { label: (ctx) => `${fmtPct(ctx.parsed.y, 1)} sector average` } },
+      },
+    },
+  });
+
+  // Ranking chart (4 cols): companies by cumulative return — horizontal bars.
   charts.companies = new Chart(document.getElementById('chart-companies'), {
     type: 'bar',
-    data: { labels: [], datasets: [{ data: [], backgroundColor: c.accent, borderRadius: 3, maxBarThickness: 18 }] },
+    data: { labels: [], datasets: [{ data: [], backgroundColor: c.accent, borderRadius: 3, maxBarThickness: 14 }] },
     options: {
-      ...baseOptions(c, 'Cumulative return (%)'),
+      ...baseOptions(c, null),
+      indexAxis: 'y',
+      scales: {
+        x: { ticks: { color: c.muted, font: { size: 10 } }, grid: { color: c.grid }, border: { display: false } },
+        y: { ticks: { color: c.muted, font: { size: 10, family: "'JetBrains Mono', monospace" } }, grid: { display: false }, border: { color: c.grid } },
+      },
       plugins: {
         ...baseOptions(c).plugins,
         tooltip: {
           ...baseOptions(c).plugins.tooltip,
           callbacks: {
             title: (ctx) => (charts.companies._meta ? charts.companies._meta[ctx[0].dataIndex].company_name : ''),
-            label: (ctx) => `${ctx.parsed.y.toFixed(0)}% cumulative return`,
+            label: (ctx) => `${ctx.parsed.x.toFixed(0)}% cumulative return`,
           },
         },
       },
     },
-  });
-
-  charts.years = new Chart(document.getElementById('chart-years'), {
-    type: 'bar',
-    data: { labels: [], datasets: [{ data: [], backgroundColor: c.accent, borderRadius: 4, maxBarThickness: 46 }] },
-    options: baseOptions(c, 'Avg. annual return (%)'),
-  });
-
-  charts.subs = new Chart(document.getElementById('chart-subs'), {
-    type: 'bar',
-    data: { labels: [], datasets: [{ data: [], backgroundColor: c.accent, borderRadius: 4, maxBarThickness: 46 }] },
-    options: baseOptions(c, 'Avg. cumulative return (%)'),
   });
 }
 
@@ -278,6 +309,7 @@ function renderTable(rows) {
     tr.innerHTML = `
       <td>${r.ticker}</td>
       <td>${r.company_name}</td>
+      <td><span class="badge">${SUB_LABEL[r.sub_industry] || r.sub_industry}</span></td>
       <td>${r.year}</td>
       <td class="${retClass}">${fmtPct(r.annual_return_pct, 1)}</td>
       <td>${r.annual_volatility_pct.toFixed(1)}%</td>
@@ -329,27 +361,19 @@ function render() {
     prevStat = { companies: nCompanies, avgReturn, top: top.cum_return_pct, avgVol };
   }
 
-  // --- Chart: companies ---
-  const companies = companySummary(rows).sort((a, b) => b.cum_return_pct - a.cum_return_pct);
-  charts.companies.data.labels = companies.map((co) => co.ticker);
-  charts.companies.data.datasets[0].data = companies.map((co) => co.cum_return_pct);
-  charts.companies.data.datasets[0].backgroundColor = companies.map((co) => (co.cum_return_pct >= 0 ? c.accent : c.critical));
-  charts.companies._meta = companies;
-  charts.companies.update();
-
-  // --- Chart: year trend ---
+  // --- Main chart: sector avg annual return over time ---
   const years = yearSummary(rows);
   charts.years.data.labels = years.map((y) => y.year);
   charts.years.data.datasets[0].data = years.map((y) => y.avg_return);
-  charts.years.data.datasets[0].backgroundColor = years.map((y) => (y.avg_return >= 0 ? c.accent : c.critical));
   charts.years.update();
 
-  // --- Chart: sub-industry ---
-  const subs = subIndustrySummary(rows);
-  charts.subs.data.labels = subs.map((s) => SUB_LABEL[s.sub_industry] || s.sub_industry);
-  charts.subs.data.datasets[0].data = subs.map((s) => s.avg_cum_return);
-  charts.subs.data.datasets[0].backgroundColor = c.accent;
-  charts.subs.update();
+  // --- Ranking chart: companies by cumulative return ---
+  const companies = companySummary(rows).sort((a, b) => b.cum_return_pct - a.cum_return_pct);
+  charts.companies.data.labels = companies.map((co) => co.ticker);
+  charts.companies.data.datasets[0].data = companies.map((co) => co.cum_return_pct);
+  charts.companies.data.datasets[0].backgroundColor = companies.map((co) => (co.cum_return_pct >= 0 ? c.positive : c.negative));
+  charts.companies._meta = companies;
+  charts.companies.update();
 
   renderTable(rows);
 }

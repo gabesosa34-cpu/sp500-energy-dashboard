@@ -10,11 +10,6 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div class="page-bg" aria-hidden="true">
-  <div class="photo-bg"></div>
-  <div class="overlay"></div>
-</div>
-
 <header class="navbar">
   <a href="index.html" class="brand">S&amp;P 500 Energy Sector</a>
   <nav>
@@ -23,19 +18,13 @@
   </nav>
 </header>
 
-<section class="hero">
-  <div class="photo-bg" aria-hidden="true"></div>
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-grain" aria-hidden="true"></div>
-  <div class="hero-content">
-    <p class="eyebrow">Interactive dashboard</p>
-    <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025?</h1>
-    <p class="byline">Search by year, sub-industry, or company<span class="sep">&middot;</span>21 companies<span class="sep">&middot;</span>2019&ndash;2025<span class="sep">&middot;</span>Gabe Sosa</p>
-  </div>
-</section>
-
 <main>
+  <div class="title-block">
+    <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025?</h1>
+    <p class="subtitle">Annual return, volatility, and trading volume for 21 companies &mdash; searchable by year, sub-industry, or company.</p>
+    <p class="meta">Gabe Sosa &middot; 2019&ndash;2025</p>
+  </div>
+
   <section class="filters">
     <div class="combo" data-filter="year">
       <label id="f-year-label" for="f-year-input">Year</label>
@@ -93,17 +82,13 @@
   </section>
 
   <div class="dash-grid">
-    <div class="chart-card wide">
-      <p class="chart-title">Cumulative return by company, 2019&ndash;2025</p>
-      <canvas id="chart-companies"></canvas>
+    <div class="chart-card span-8">
+      <p class="chart-title">Sector average annual return, 2019&ndash;2025</p>
+      <canvas id="chart-years" aria-label="Line chart: sector average annual return by year, 2019 to 2025" role="img"></canvas>
     </div>
-    <div class="chart-card">
-      <p class="chart-title">Sector avg. annual return by year</p>
-      <canvas id="chart-years"></canvas>
-    </div>
-    <div class="chart-card">
-      <p class="chart-title">Avg. cumulative return by sub-industry</p>
-      <canvas id="chart-subs"></canvas>
+    <div class="chart-card span-4">
+      <p class="chart-title">Companies ranked by cumulative return</p>
+      <canvas id="chart-companies" aria-label="Horizontal bar chart: 21 companies ranked by cumulative return, 2019 to 2025" role="img"></canvas>
     </div>
   </div>
 
@@ -118,6 +103,7 @@
           <tr>
             <th data-sort="ticker">Ticker</th>
             <th data-sort="company_name">Company</th>
+            <th data-sort="sub_industry">Sub-industry</th>
             <th data-sort="year">Year</th>
             <th data-sort="annual_return_pct">Annual return</th>
             <th data-sort="annual_volatility_pct">Volatility</th>
@@ -130,7 +116,7 @@
   </div>
 </main>
 
-<footer class="site-footer plain">
+<footer class="site-footer">
   <div class="footer-content">
     <span><strong>Gabe Sosa</strong> &middot; S&amp;P 500 Energy sector research</span>
     <span>Data period: 2019&ndash;2025</span>

@@ -10,7 +10,7 @@ const SUB_LABEL = {
 
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function animateValue(el, to, formatFn, duration = 900) {
+function animateValue(el, to, formatFn, duration = 600) {
   if (REDUCED_MOTION) {
     el.textContent = formatFn(to);
     return;
@@ -28,12 +28,11 @@ function animateValue(el, to, formatFn, duration = 900) {
 function chartDefaults() {
   const styles = getComputedStyle(document.documentElement);
   return {
-    text: styles.getPropertyValue('--text-secondary').trim(),
-    muted: styles.getPropertyValue('--text-muted').trim(),
-    grid: styles.getPropertyValue('--grid').trim(),
-    blue: styles.getPropertyValue('--accent').trim(),
-    good: styles.getPropertyValue('--good').trim(),
-    critical: styles.getPropertyValue('--critical').trim(),
+    muted: styles.getPropertyValue('--text-dim').trim(),
+    grid: styles.getPropertyValue('--border').trim(),
+    accent: styles.getPropertyValue('--accent').trim(),
+    positive: styles.getPropertyValue('--positive').trim(),
+    negative: styles.getPropertyValue('--negative').trim(),
   };
 }
 
@@ -46,10 +45,10 @@ function baseOptions(c, yLabel) {
       legend: { display: false },
       tooltip: {
         backgroundColor: '#0d1320',
-        borderColor: 'rgba(255,255,255,0.16)',
+        borderColor: 'rgba(255,255,255,0.14)',
         borderWidth: 1,
-        titleColor: '#e8ecf4',
-        bodyColor: '#9aa3b8',
+        titleColor: '#e6edf7',
+        bodyColor: '#8b98ad',
         padding: 10,
         cornerRadius: 8,
         titleFont: { family: "'Inter', sans-serif", weight: '600' },
@@ -66,6 +65,15 @@ function baseOptions(c, yLabel) {
       },
     },
   };
+}
+
+function accentAreaGradient(context) {
+  const { ctx, chartArea } = context.chart;
+  if (!chartArea) return null;
+  const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+  g.addColorStop(0, 'rgba(34, 211, 238, 0.32)');
+  g.addColorStop(1, 'rgba(34, 211, 238, 0)');
+  return g;
 }
 
 async function main() {
@@ -114,7 +122,7 @@ async function main() {
       labels: subs.map((s) => SUB_LABEL[s.sub_industry]),
       datasets: [{
         data: subs.map((s) => s.avg_cum_return),
-        backgroundColor: c.blue,
+        backgroundColor: c.accent,
         borderRadius: 4,
         maxBarThickness: 46,
       }],
@@ -139,7 +147,7 @@ async function main() {
       labels: companies.map((co) => co.ticker),
       datasets: [{
         data: companies.map((co) => co.cum_return_pct),
-        backgroundColor: companies.map((co) => (co.cum_return_pct >= 0 ? c.blue : c.critical)),
+        backgroundColor: companies.map((co) => (co.cum_return_pct >= 0 ? c.positive : c.negative)),
         borderRadius: 3,
         maxBarThickness: 18,
       }],
@@ -160,7 +168,7 @@ async function main() {
     },
   });
 
-  // --- Finding 3: year by year sector swings ---
+  // --- Finding 3: year by year sector swings — line + gradient area, matching the dashboard's main chart ---
   const worstYear = years.slice().sort((a, b) => a.avg_return - b.avg_return)[0];
   const bestYear = years.slice().sort((a, b) => b.avg_return - a.avg_return)[0];
   document.getElementById('f3-worst-year').textContent = worstYear.year;
@@ -168,14 +176,21 @@ async function main() {
   document.getElementById('f3-best-year').textContent = bestYear.year;
   document.getElementById('f3-best-return').textContent = fmtPct(bestYear.avg_return, 0);
   new Chart(document.getElementById('chart-years'), {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: years.map((y) => y.year),
       datasets: [{
         data: years.map((y) => y.avg_return),
-        backgroundColor: years.map((y) => (y.avg_return >= 0 ? c.blue : c.critical)),
-        borderRadius: 4,
-        maxBarThickness: 46,
+        borderColor: c.accent,
+        borderWidth: 2,
+        backgroundColor: accentAreaGradient,
+        fill: 'origin',
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: c.accent,
+        pointBorderColor: '#111827',
+        pointBorderWidth: 1.5,
+        pointHoverRadius: 5,
       }],
     },
     options: {
@@ -200,7 +215,7 @@ async function main() {
     data: {
       datasets: [{
         data: rows.map((r) => ({ x: r.annual_volatility_pct, y: r.annual_return_pct, ticker: r.ticker, year: r.year })),
-        backgroundColor: c.blue,
+        backgroundColor: c.accent,
         pointRadius: 4,
         pointHoverRadius: 6,
       }],

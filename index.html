@@ -19,24 +19,18 @@
   </nav>
 </header>
 
-<section class="hero">
-  <div class="photo-bg" aria-hidden="true"></div>
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-grain" aria-hidden="true"></div>
-  <div class="hero-content">
-    <p class="eyebrow">Research note &middot; Energy sector</p>
+<main>
+  <div class="title-block">
     <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025, and what set them apart?</h1>
-    <p class="byline">21 S&amp;P 500 Energy-sector companies<span class="sep">&middot;</span>145 company-years<span class="sep">&middot;</span>2019&ndash;2025<span class="sep">&middot;</span>Gabe Sosa</p>
+    <p class="subtitle">A research note on 21 S&amp;P 500 Energy companies, 145 company-years, 2019&ndash;2025.</p>
+    <p class="meta">Gabe Sosa &middot; 2019&ndash;2025</p>
     <div class="title-actions">
       <a href="dashboard.html" class="btn btn-primary">Open the interactive dashboard &rarr;</a>
     </div>
   </div>
-</section>
 
-<main>
   <section class="summary-panel">
-    <p class="eyebrow">Summary</p>
+    <p class="label panel-label">Summary</p>
     <div class="callout">
       <p class="lede">
         Midstream pipeline companies &mdash; led by <strong id="lede-top-ticker"></strong>, up <strong id="lede-top-return"></strong>
@@ -78,7 +72,9 @@
       storage companies earn fee-based income on the volume of oil and gas that moves through their systems, so their
       results depend less on commodity prices than drillers' do &mdash; which shows up directly in steadier, stronger returns.
     </p>
-    <div class="chart-card"><canvas id="chart-subindustry"></canvas></div>
+    <div class="chart-card">
+      <canvas id="chart-subindustry" aria-label="Bar chart: average cumulative return by sub-industry, 2019 to 2025" role="img"></canvas>
+    </div>
     <p class="chart-caption">Average cumulative return, 2019&ndash;2025, by sub-industry. Source: sp500_energy_panel.csv.</p>
   </article>
 
@@ -90,18 +86,11 @@
       its 2019 starting price, down <strong id="f2-loser-return"></strong>. The spread between the best and worst
       performer is wide enough that sub-industry alone doesn't decide outcomes &mdash; company-level execution matters too.
     </p>
-    <div class="chart-card"><canvas id="chart-companies"></canvas></div>
+    <div class="chart-card">
+      <canvas id="chart-companies" aria-label="Bar chart: cumulative return by company, 2019 to 2025, sorted high to low" role="img"></canvas>
+    </div>
     <p class="chart-caption">Cumulative return by company, 2019&ndash;2025, sorted high to low. Source: sp500_energy_panel.csv.</p>
   </article>
-
-  <div class="section-divider reveal">
-    <div class="photo-bg" aria-hidden="true"></div>
-    <div class="divider-overlay" aria-hidden="true"></div>
-    <div class="divider-caption">
-      <p class="eyebrow">Sector in transition</p>
-      <p>The same companies racing to expand renewables and lower-carbon output are the ones setting the return and risk patterns below.</p>
-    </div>
-  </div>
 
   <article class="report-section reveal">
     <h2>The sector's gains came from two boom years, not steady growth</h2>
@@ -111,7 +100,9 @@
       the sector's 2019&ndash;2025 gains were earned in that recovery window, not through steady year-over-year growth,
       which matters for timing new positions.
     </p>
-    <div class="chart-card"><canvas id="chart-years"></canvas></div>
+    <div class="chart-card">
+      <canvas id="chart-years" aria-label="Line chart: sector average annual return by year, 2019 to 2025" role="img"></canvas>
+    </div>
     <p class="chart-caption">Sector average annual return by year. Source: sp500_energy_panel.csv.</p>
   </article>
 
@@ -122,12 +113,14 @@
       (r = <strong id="f4-corr"></strong>). The riskiest stock-years did not reliably pay off with the biggest gains &mdash;
       another reason to favor the steadier midstream and refining names over the most volatile exploration &amp; production stocks.
     </p>
-    <div class="chart-card"><canvas id="chart-scatter"></canvas></div>
+    <div class="chart-card">
+      <canvas id="chart-scatter" aria-label="Scatter chart: annual volatility versus annual return, one point per company-year" role="img"></canvas>
+    </div>
     <p class="chart-caption">Each point is one company in one year: annual volatility vs. annual return. Source: sp500_energy_panel.csv.</p>
   </article>
 
   <section class="closing-panel reveal">
-    <p class="eyebrow">About this data</p>
+    <p class="label panel-label">About this data</p>
     <h2>Methodology &amp; sources</h2>
     <dl>
       <dt>Source</dt>
@@ -160,8 +153,6 @@
 </main>
 
 <footer class="site-footer">
-  <div class="photo-bg" aria-hidden="true"></div>
-  <div class="footer-overlay" aria-hidden="true"></div>
   <div class="footer-content">
     <span><strong>Gabe Sosa</strong> &middot; S&amp;P 500 Energy sector research</span>
     <span>Data period: 2019&ndash;2025</span>
