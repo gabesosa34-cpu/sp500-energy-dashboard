@@ -22,9 +22,10 @@
   --border-strong: rgba(255, 255, 255, 0.14);
 
   /* Text */
-  --text:       #e6edf7;
-  --text-muted: #8b98ad;
-  --text-dim:   #5b6678;
+  --text:         #e6edf7;
+  --text-muted:   #8b98ad;
+  --text-muted-2: #a7b3c7; /* brighter muted — report-page body copy, keeps contrast at larger sizes */
+  --text-dim:     #5b6678;
 
   /* Primary accent — cyan does the heavy lifting: numbers, active
      states, focus rings, links, primary chart series */
@@ -54,7 +55,6 @@
   --radius:    12px;
   --radius-sm: 8px;
   --content-max: 1320px;
-  --reading-max: 720px;
 
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -740,12 +740,19 @@ table.data-table tbody tr.group-header td {
   border-left: 2px solid var(--accent);
   background: var(--accent-tint);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 16px 20px;
+  padding: 18px 22px;
   margin: 0;
-  max-width: var(--reading-max);
+  width: 100%;
 }
 .summary-panel-stats { margin-top: 20px; margin-bottom: 0; }
-.callout p { margin: 0; font-size: 15px; color: var(--text); max-width: none; }
+.callout p {
+  margin: 0;
+  max-width: none;
+  color: var(--text);
+  font-size: clamp(16px, 15.8px + 0.22vw, 19px);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
 .callout strong { color: var(--text); }
 
 .report-section {
@@ -757,15 +764,29 @@ table.data-table tbody tr.group-header td {
   margin: 20px 0;
   padding: 24px;
 }
-.report-section h2 { margin: 0 0 16px; }
+.report-section h2 {
+  margin: 0 0 16px;
+  font-size: clamp(20px, 18.6px + 0.45vw, 25px);
+}
 .report-section p {
-  color: var(--text-muted);
-  max-width: var(--reading-max);
-  margin: 0 0 18px;
-  font-size: 14px;
+  color: var(--text-muted-2);
+  max-width: none;
+  margin: 0 0 1.25em;
+  font-size: clamp(15px, 15.3px + 0.15vw, 17.5px);
+  line-height: 1.75;
+  text-wrap: pretty;
 }
 .report-section p strong { color: var(--text); }
 .report-section .chart-card { margin-top: 4px; background: var(--bg-elevated); }
+
+/* Readability safeguard: a paragraph long enough to run past ~5-6 lines
+   at the full panel width balances into two columns on wide screens. */
+@media (min-width: 1100px) {
+  .report-section p.long-form {
+    column-count: 2;
+    column-gap: 40px;
+  }
+}
 
 .closing-panel {
   position: relative;
@@ -776,8 +797,11 @@ table.data-table tbody tr.group-header td {
   margin-top: 20px;
   padding: 26px 24px;
 }
-.closing-panel h2 { margin: 0 0 8px; }
-.closing-panel dl { max-width: var(--reading-max); color: var(--text-muted); font-size: 13px; }
+.closing-panel h2 {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 18.6px + 0.45vw, 25px);
+}
+.closing-panel dl { max-width: none; color: var(--text-muted); font-size: 13px; }
 .closing-panel dt { font-weight: 700; color: var(--text); margin-top: 16px; }
 .closing-panel dt:first-child { margin-top: 10px; }
 .closing-panel dd { margin: 5px 0 0; }
