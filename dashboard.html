@@ -21,48 +21,50 @@
 <main>
   <div class="title-block">
     <h1>Within the S&amp;P 500 Energy sector, which companies outperformed from 2019 to 2025?</h1>
-    <p class="subtitle">Annual return, volatility, and trading volume for 21 companies &mdash; searchable by year, sub-industry, or company.</p>
+    <p class="subtitle">Annual return, volatility, and trading volume for 21 companies &mdash; select multiple years, sub-industries, or companies to compare.</p>
     <p class="meta">Gabe Sosa &middot; 2019&ndash;2025</p>
   </div>
 
   <section class="filters">
     <div class="combo" data-filter="year">
       <label id="f-year-label" for="f-year-input">Year</label>
-      <div class="combo-input-wrap">
+      <div class="combo-input-wrap" id="f-year-wrap">
         <input type="text" id="f-year-input" role="combobox" aria-expanded="false"
                aria-controls="f-year-listbox" aria-autocomplete="list" aria-labelledby="f-year-label"
                autocomplete="off" placeholder="All years" />
         <button type="button" class="combo-clear" data-clear="year" aria-label="Clear year filter">&times;</button>
       </div>
-      <ul role="listbox" id="f-year-listbox" class="combo-listbox" hidden></ul>
+      <ul role="listbox" id="f-year-listbox" class="combo-listbox" aria-multiselectable="true" hidden></ul>
     </div>
 
     <div class="combo" data-filter="sub">
       <label id="f-sub-label" for="f-sub-input">Sub-industry</label>
-      <div class="combo-input-wrap">
+      <div class="combo-input-wrap" id="f-sub-wrap">
         <input type="text" id="f-sub-input" role="combobox" aria-expanded="false"
                aria-controls="f-sub-listbox" aria-autocomplete="list" aria-labelledby="f-sub-label"
                autocomplete="off" placeholder="All sub-industries" />
         <button type="button" class="combo-clear" data-clear="sub" aria-label="Clear sub-industry filter">&times;</button>
       </div>
-      <ul role="listbox" id="f-sub-listbox" class="combo-listbox" hidden></ul>
+      <ul role="listbox" id="f-sub-listbox" class="combo-listbox" aria-multiselectable="true" hidden></ul>
     </div>
 
     <div class="combo" data-filter="ticker">
       <label id="f-ticker-label" for="f-ticker-input">Company</label>
-      <div class="combo-input-wrap">
+      <div class="combo-input-wrap" id="f-ticker-wrap">
         <input type="text" id="f-ticker-input" role="combobox" aria-expanded="false"
                aria-controls="f-ticker-listbox" aria-autocomplete="list" aria-labelledby="f-ticker-label"
                autocomplete="off" placeholder="All companies" />
         <button type="button" class="combo-clear" data-clear="ticker" aria-label="Clear company filter">&times;</button>
       </div>
-      <ul role="listbox" id="f-ticker-listbox" class="combo-listbox" hidden></ul>
+      <ul role="listbox" id="f-ticker-listbox" class="combo-listbox" aria-multiselectable="true" hidden></ul>
     </div>
 
     <button id="reset-btn" class="btn btn-secondary" type="button">Reset filters</button>
   </section>
 
-  <section class="stat-grid">
+  <p class="scope-label" id="scope-label"></p>
+
+  <section class="stat-grid" id="stat-grid">
     <div class="stat-tile">
       <div class="value" id="stat-companies">&ndash;</div>
       <div class="label">Companies in view</div>
@@ -81,37 +83,84 @@
     </div>
   </section>
 
-  <div class="dash-grid">
-    <div class="chart-card span-8">
-      <p class="chart-title">Sector average annual return, 2019&ndash;2025</p>
-      <canvas id="chart-years" aria-label="Line chart: sector average annual return by year, 2019 to 2025" role="img"></canvas>
-    </div>
-    <div class="chart-card span-4">
-      <p class="chart-title">Companies ranked by cumulative return</p>
-      <canvas id="chart-companies" aria-label="Horizontal bar chart: 21 companies ranked by cumulative return, 2019 to 2025" role="img"></canvas>
-    </div>
+  <div id="empty-state" class="empty-state panel" hidden>
+    <p>No data for this selection.</p>
+    <button type="button" class="btn btn-secondary" id="empty-reset-btn">Reset filters</button>
   </div>
 
-  <div class="table-wrap">
-    <div class="table-meta">
-      <span id="row-count"></span>
-      <span>Click a column to sort</span>
+  <div id="results">
+    <section class="compare-panel panel" id="compare-panel" hidden>
+      <p class="label panel-label">Compare companies</p>
+      <div class="compare-table-wrap">
+        <table class="compare-table" id="compare-table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Cumulative return</th>
+              <th>Avg. annual return</th>
+              <th>Avg. volatility</th>
+              <th>Best year</th>
+              <th>Worst year</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="dash-grid">
+      <div class="chart-card span-8">
+        <div class="chart-toolbar">
+          <p class="chart-title" id="main-chart-title">Sector average annual return, 2019&ndash;2025</p>
+        </div>
+        <canvas id="chart-main" aria-label="Chart: annual return over time for the current selection" role="img"></canvas>
+        <p class="chart-note" id="main-chart-note" hidden></p>
+      </div>
+      <div class="chart-card span-4">
+        <div class="chart-toolbar">
+          <p class="chart-title" id="rank-chart-title">Companies ranked by annual return</p>
+        </div>
+        <div class="segmented" id="rank-metric-toggle" role="group" aria-label="Rank companies by">
+          <button type="button" data-metric="avg_annual_return" class="active">Return</button>
+          <button type="button" data-metric="avg_annual_vol">Volatility</button>
+          <button type="button" data-metric="avg_daily_volume">Volume</button>
+        </div>
+        <canvas id="chart-rank" class="chart-rank-canvas" aria-label="Horizontal bar chart: companies ranked by the selected metric" role="img"></canvas>
+      </div>
     </div>
-    <div class="table-scroll">
-      <table class="data-table" id="data-table">
-        <thead>
-          <tr>
-            <th data-sort="ticker">Ticker</th>
-            <th data-sort="company_name">Company</th>
-            <th data-sort="sub_industry">Sub-industry</th>
-            <th data-sort="year">Year</th>
-            <th data-sort="annual_return_pct">Annual return</th>
-            <th data-sort="annual_volatility_pct">Volatility</th>
-            <th data-sort="avg_daily_volume">Avg. daily volume</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+
+    <div class="controls-row">
+      <div>
+        <span class="label">Group by</span>
+        <div class="segmented" id="group-by-toggle" role="group" aria-label="Group table by">
+          <button type="button" data-group="ticker" class="active">Company</button>
+          <button type="button" data-group="sub_industry">Sub-industry</button>
+          <button type="button" data-group="year">Year</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-meta">
+        <span id="row-count"></span>
+        <span>Click a column to sort</span>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table" id="data-table">
+          <thead>
+            <tr>
+              <th data-sort="ticker">Ticker</th>
+              <th data-sort="company_name">Company</th>
+              <th data-sort="sub_industry">Sub-industry</th>
+              <th data-sort="year">Year</th>
+              <th data-sort="annual_return_pct">Annual return</th>
+              <th data-sort="annual_volatility_pct">Volatility</th>
+              <th data-sort="avg_daily_volume">Avg. daily volume</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </main>

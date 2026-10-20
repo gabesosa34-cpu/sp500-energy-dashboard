@@ -54,6 +54,8 @@ function companySummary(rows) {
     const first = rs[0];
     const last = rs[rs.length - 1];
     const cumReturn = (last.close_price / first.open_price - 1) * 100;
+    const bestRow = rs.reduce((a, b) => (b.annual_return_pct > a.annual_return_pct ? b : a));
+    const worstRow = rs.reduce((a, b) => (b.annual_return_pct < a.annual_return_pct ? b : a));
     return {
       ticker: first.ticker,
       company_name: first.company_name,
@@ -62,6 +64,11 @@ function companySummary(rows) {
       cum_return_pct: cumReturn,
       avg_annual_return: mean(rs.map((r) => r.annual_return_pct)),
       avg_annual_vol: mean(rs.map((r) => r.annual_volatility_pct)),
+      avg_daily_volume: mean(rs.map((r) => r.avg_daily_volume)),
+      best_year: bestRow.year,
+      best_year_return: bestRow.annual_return_pct,
+      worst_year: worstRow.year,
+      worst_year_return: worstRow.annual_return_pct,
     };
   });
 }
