@@ -240,6 +240,12 @@ async function main() {
       },
     },
   });
+
+  // --- Agreement table (closing section): same computed values as the summary tiles above ---
+  document.getElementById('agree-companies').textContent = nCompanies;
+  document.getElementById('agree-avgreturn').textContent = fmtPct(avgReturn);
+  document.getElementById('agree-top').textContent = `${fmtPct(top.cum_return_pct, 0)} (${top.company_name})`;
+  document.getElementById('agree-avgvol').textContent = `${avgVol.toFixed(1)}%`;
 }
 
 main();

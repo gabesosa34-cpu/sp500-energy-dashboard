@@ -814,6 +814,41 @@ table.data-table tbody tr.group-header td {
   color: var(--text);
 }
 
+/* ---------- Agreement table (closing section) ---------- */
+.agreement-block {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.agreement-heading { margin: 0 0 8px; font-size: 15px; color: var(--text); font-weight: 700; }
+.agreement-note { margin: 0 0 14px; font-size: 12px; color: var(--text-dim); }
+.agreement-table-wrap { overflow-x: auto; }
+.agreement-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.agreement-table th,
+.agreement-table td {
+  padding: 10px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.agreement-table th:first-child,
+.agreement-table td:first-child { text-align: left; white-space: normal; }
+.agreement-table td:nth-child(n+2) {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.agreement-table thead th {
+  color: var(--text-dim);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.agreement-link { margin: 16px 0 6px; font-size: 13px; }
+.agreement-link a { font-weight: 600; }
+.agreement-conclusion { margin: 0; font-size: 13px; color: var(--text-muted); }
+
 /* ---------- Phone ---------- */
 @media (max-width: 560px) {
   main { padding: 24px 16px 0; }
@@ -824,6 +859,7 @@ table.data-table tbody tr.group-header td {
   .navbar { padding: 0 16px; }
   .title-actions { flex-direction: column; align-items: flex-start; }
   .site-footer .footer-content { flex-direction: column; align-items: flex-start; text-align: left; }
+  .agreement-table th, .agreement-table td { padding: 8px 8px; font-size: 12px; }
 }
 
 /* ---------- Reduced motion ---------- */
